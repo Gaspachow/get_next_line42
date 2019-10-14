@@ -6,52 +6,37 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/14 16:29:33 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/14 17:39:49 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #define BUFFER_SIZE
 
-int	get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
-	unsigned char buff[BUFFER_SIZE + 1];
-	static char *file_content;
-	size_t	ret;
+	unsigned char	buff[BUFFER_SIZE + 1];
+	static char		*file_content;
+	size_t			ret;
+	char			*tmp;
 
 	while (ret = read(fd, *buf, BUFFER_SIZE))
 	{
-		buf[ret] = '\0';
+		buff[ret] = '\0';
+		if(!(tmp = ft_strjoin(file_content, buff)))
+			return (-1);
+		free(file_content);
+		file_content = tmp;
 	}
-
-
-	while (*buf != '\n')
-	{
-		**line = *buff;
-		*line++;
-		buff++;
-	}
+	if (!ret)
+		return (0);
+	while ()
 }
 
-int	gnl_reader(int fd, char *file)
-{
-
-}
-
-int	*detect_newline(unsigned char *str)
+int		*detect_nl(unsigned char *str)
 {
 	while (*str)
 		if (*str == '\n')
 			return (1);
 	return (0);
-}
-
-size_t line_len(unsigned char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (*str != '\n' && *str != 'EOF')
-		i++;
-	return (i);
 }
