@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/14 19:16:32 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/14 19:41:19 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ int		get_next_line(int fd, char **line)
 
 	while ((ret = read(fd, buff, BUFFER_SIZE)))
 	{
+		//test --------------------------------------------------------------------------- <=== TEST HERE
+		write(1, "test\n", 5);
 		buff[ret] = '\0';
-		if(!(tmp = ft_strjoin(str, buff)))
+		if(!(tmp = ft_strjoin(buff, str)))
 			return (-1);
 		free(str);
 		str = tmp;
