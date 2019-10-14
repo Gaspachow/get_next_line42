@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:56:41 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/14 17:07:38 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/14 18:17:45 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_memmove(&new[len1], s2, len2);
 	new[len1 + len2] = '\0';
 	return (new);
+}
+
+char	*ft_strdup(const char *src)
+{
+	char	*dest;
+	int		i;
+
+	i = 0;
+	dest = malloc(ft_strlen(src) + 1);
+	if (dest == NULL)
+		return (NULL);
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
