@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/14 19:41:19 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/15 14:44:39 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ int		get_next_line(int fd, char **line)
 	size_t			ret;
 	char			*tmp;
 
-	while ((ret = read(fd, buff, BUFFER_SIZE)))
+	if ((ret = read(fd, buff, BUFFER_SIZE)))
 	{
-		//test --------------------------------------------------------------------------- <=== TEST HERE
-		write(1, "test\n", 5);
 		buff[ret] = '\0';
 		if(!(tmp = ft_strjoin(buff, str)))
 			return (-1);
@@ -32,25 +30,31 @@ int		get_next_line(int fd, char **line)
 	}
 	if (!ret && str[0] == '\0')
 		return (0);
-	if ((*line = create_line(str, line, fd)))
+	if ((*line = create_line(&str, line, fd)))
+	{
 		return (1);
+	}
 	else
 		return (-1);
 }
 
-char	*create_line(char *str, char **line, int fd)
+char	*create_line(char **str, char **line, int fd)
 {
 	size_t	len;
 	char	*newline;
+	char	*tmp;
 
 	len = 0;
-	while (str[len] != '\n' && str[len] != '\0')
+	while (*str[len] != '\n' && *str[len] != '\0')
 		len++;
-	if (str[len] == '\n')
+	if (*str[len] == '\n')
 	{
 		newline = malloc((len + 1) * sizeof(char));
-		ft_memmove(newline, str, len);
+		ft_memmove(newline, *str, len);
 		newline[len] = '\0';
+		tmp = ft_strdup(str[len + 1]);
+		free(*str);
+		*str = tmp;
 		return (newline);
 	}
 	else
