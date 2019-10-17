@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/17 15:04:54 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/17 17:09:09 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,28 @@ char	*create_line(char **str)
 	len = 0;
 	while ((*str)[len] != '\n' && (*str)[len] != '\0')
 		len++;
-	if ((*str)[len] == '\n' && (*str)[len + 1] == '\0')
-		len++;
+	if (len && (*str)[len] == '\n' && (*str)[len + 1] == '\0')
+		return(last_string(str, len));
 	newline = malloc((len + 1) * sizeof(char));
 	ft_memmove(newline, *str, len);
 	newline[len] = '\0';
 	tmp = ft_substr(*str, len + 1, (ft_strlen(*str) - (len + 1)));
 	free(*str);
 	*str = tmp;
+	return (newline);
+}
+
+
+char	*last_string(char **str, size_t len)
+{
+	char	*newline;
+
+	newline = malloc((len + 1) * sizeof(char));
+	ft_memmove(newline, *str, len);
+	newline[len] = '\0';
+	free(*str);
+	*str = malloc(2 * sizeof(char));
+	(*str)[0] = '\n';
+	(*str)[1] = '\0';
 	return (newline);
 }
