@@ -6,30 +6,35 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/16 17:51:24 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/17 15:04:54 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER_SIZE 2000
+#define BUFFER_SIZE 1
 
 int		get_next_line(int fd, char **line)
 {
-	char	buff[BUFFER_SIZE + 1];
+	char			buff[BUFFER_SIZE + 1];
 	static char		*str;
-	size_t			ret;
+	int				ret;
 	char			*tmp;
-	while ((ret = read(fd, buff, BUFFER_SIZE)))
+
+	if (line == NULL || fd < 0)
+		return (-1);
+	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
-		if(!(tmp = ft_strjoin(str, buff)))
+		if (!(tmp = ft_strjoin(str, buff)))
 			return (-1);
 		free(str);
 		str = tmp;
 	}
-	if (!ret && str[0] == '\0')
+	if (!str)
+		return (-1);
+	else if (str[0] == '\0')
 		return (0);
-	if ((*line = create_line(&str)))
+	else if ((*line = create_line(&str)))
 		return (1);
 	else
 		return (-1);
@@ -40,6 +45,7 @@ char	*create_line(char **str)
 	size_t	len;
 	char	*newline;
 	char	*tmp;
+
 	len = 0;
 	while ((*str)[len] != '\n' && (*str)[len] != '\0')
 		len++;
