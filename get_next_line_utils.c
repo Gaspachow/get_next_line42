@@ -6,11 +6,11 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:56:41 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/17 15:03:24 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/18 10:55:51 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include <stdlib.h>
 
 size_t	ft_strlen(const char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 14:43:35 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/17 16:52:15 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/18 10:58:55 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <fcntl.h>
 
 size_t	ft_strlen(const char *str);
 void	*ft_memmove(void *dest, const void *src, size_t n);
