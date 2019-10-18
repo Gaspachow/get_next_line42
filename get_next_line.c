@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/18 11:06:21 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/18 11:10:48 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ char	*create_line(char **str)
 		len++;
 	if (len && (*str)[len] == '\n' && (*str)[len + 1] == '\0')
 		return (last_string(str, len));
-	newline = malloc((len + 1) * sizeof(char));
+	if (!(newline = malloc((len + 1) * sizeof(char))))
+		return (NULL);
 	ft_memmove(newline, *str, len);
 	newline[len] = '\0';
 	tmp = ft_substr(*str, len + 1, (ft_strlen(*str) - (len + 1)));
@@ -64,7 +65,8 @@ char	*last_string(char **str, size_t len)
 {
 	char	*newline;
 
-	newline = malloc((len + 1) * sizeof(char));
+	if (!(newline = malloc((len + 1) * sizeof(char))))
+		return (NULL);
 	ft_memmove(newline, *str, len);
 	newline[len] = '\0';
 	free(*str);
