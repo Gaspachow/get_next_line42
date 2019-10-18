@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/18 10:47:47 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/18 11:06:21 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		get_next_line(int fd, char **line)
 		str = tmp;
 	}
 	if (!str)
-		return (-1);
+		return (0);
 	else if (str[0] == '\0')
 		return (0);
 	else if ((*line = create_line(&str)))
