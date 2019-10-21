@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 14:43:35 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/18 10:58:55 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/21 19:05:03 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ int		get_next_line(int fd, char **line);
 char	*create_line(char **str);
 char	*ft_substr(char const *str, unsigned int index, size_t len);
 char	*last_string(char **str, size_t len);
+int		check_nl(char *str);
+char	*last_line(char	**str);
 
 #endif
