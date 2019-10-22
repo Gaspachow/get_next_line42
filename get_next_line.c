@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/21 20:13:23 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/22 14:21:29 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int		get_next_line(int fd, char **line)
 	}
 	if (!str)
 	{
-		free(str);
 		return (0);
 	}
 	else if ((*line = create_line(&str)))
@@ -55,7 +54,7 @@ char	*create_line(char **str)
 		return (NULL);
 	ft_memmove(newline, *str, len);
 	newline[len] = '\0';
-	tmp = ft_substr(*str, len, (ft_strlen(*str) - (len + 1)));
+	tmp = ft_substr(*str, len + 1, (ft_strlen(*str) - (len + 1)));
 	free(*str);
 	*str = tmp;
 	return (newline);
