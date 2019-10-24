@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/24 12:09:54 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/24 12:12:52 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 1
 #endif
@@ -18,25 +18,25 @@
 int		get_next_line(int fd, char **line)
 {
 	char			buff[BUFFER_SIZE + 1];
-	static char		*str;
+	static char		*str[1000];
 	int				ret;
 	char			*tmp;
 
 	if (line == NULL || fd < 0)
 		return (-1);
-	while (!(check_nl(str)) && ((ret = read(fd, buff, BUFFER_SIZE)) > 0))
+	while (!(check_nl(str[fd])) && ((ret = read(fd, buff, BUFFER_SIZE)) > 0))
 	{
 		buff[ret] = '\0';
-		if (!(tmp = ft_strjoin(str, buff)))
+		if (!(tmp = ft_strjoin(str[fd], buff)))
 			return (-1);
-		free(str);
-		str = tmp;
+		free(str[fd]);
+		str[fd] = tmp;
 	}
-	if (!str)
+	if (!str[fd])
 	{
 		return (0);
 	}
-	else if ((*line = create_line(&str)))
+	else if ((*line = create_line(&str[fd])))
 		return (1);
 	else
 		return (-1);
