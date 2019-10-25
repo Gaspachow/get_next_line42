@@ -1,10 +1,4 @@
-coucou
-les
-amis
-salut
-ca
-va
-l'ami
-haha
-mon
-pote
+Structural basis of substrate 
+binding to UDP-galactopyranose 
+mutase: 
+crystal structures in the reduced and oxidized state complexed ...

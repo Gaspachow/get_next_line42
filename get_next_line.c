@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/25 18:27:35 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/25 19:10:21 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 
 int		get_next_line(int fd, char **line)
 {
-	char			buff[BUFFER_SIZE + 1];
+	char			*buff;
 	static char		*str;
 	int				ret;
 	char			*tmp;
 
-	if (line == NULL || fd < 0)
+	if (line == NULL || fd < 0 || BUFFER_SIZE <= 0)
+		return (-1);
+	if (!(buff = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
 	while (!(check_nl(str)) && ((ret = read(fd, buff, BUFFER_SIZE)) > 0))
 	{
@@ -32,18 +34,13 @@ int		get_next_line(int fd, char **line)
 		free(str);
 		str = tmp;
 	}
+	free(buff);
 	if (!str)
 		return (0);
-	if ((*line = create_line(&str)))
-		if (!str)
-			return (0);
-		else
-			return (1);
-	else
-		return (-1);
+	return (create_line(&str, line));
 }
 
-char	*create_line(char **str)
+int		create_line(char **str, char **line)
 {
 	size_t	len;
 	char	*newline;
@@ -53,25 +50,27 @@ char	*create_line(char **str)
 	while ((*str)[len] != '\n' && (*str)[len] != '\0')
 		len++;
 	if ((*str)[len] == '\0')
-		return (last_line(str));
+		return (last_line(str, line));
 	if (!(newline = malloc((len + 1) * sizeof(char))))
-		return (NULL);
+		return (-1);
 	ft_memmove(newline, *str, len);
 	newline[len] = '\0';
 	tmp = ft_substr(*str, len + 1, (ft_strlen(*str) - (len + 1)));
 	free(*str);
 	*str = tmp;
-	return (newline);
+	*line = newline;
+	return (1);
 }
 
-char	*last_line(char **str)
+int		last_line(char **str, char **line)
 {
 	char	*newline;
 
 	newline = ft_strdup(*str);
 	free(*str);
 	*str = NULL;
-	return (newline);
+	*line = newline;
+	return (0);
 }
 
 int		check_nl(char *str)
