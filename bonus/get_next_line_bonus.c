@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/28 16:10:17 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/28 16:12:37 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 int		get_next_line(int fd, char **line)
 {
 	char			*buff;
-	static char		*str;
+	static char		*str[300];
 	int				ret;
 	char			*tmp;
 
@@ -26,19 +26,19 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	if (!(buff = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
-	while (!(check_nl(str)) && ((ret = read(fd, buff, BUFFER_SIZE)) > 0))
+	while (!(check_nl(str[fd])) && ((ret = read(fd, buff, BUFFER_SIZE)) > 0))
 	{
 		buff[ret] = '\0';
-		if (!(tmp = ft_strjoin(str, buff)))
+		if (!(tmp = ft_strjoin(str[fd], buff)))
 			return (-1);
-		free(str);
-		str = tmp;
+		free(str[fd]);
+		str[fd] = tmp;
 	}
 	free(buff);
-	if (!str)
+	if (!str[fd])
 		if ((*line = ft_strdup("")))
 			return (0);
-	return (create_line(&str, line));
+	return (create_line(&str[fd], line));
 }
 
 int		create_line(char **str, char **line)
