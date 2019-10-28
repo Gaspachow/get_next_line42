@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:56:41 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/22 15:33:51 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/28 11:32:46 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*ft_strdup(const char *src)
 	dest = malloc(ft_strlen(src) + 1);
 	if (dest == NULL)
 		return (NULL);
-	while (src[i] && src[i] != '\n') // ---------- src[i] != '\n' to ignore last new line
+	while (src[i] && src[i] != '\n')
 	{
 		dest[i] = src[i];
 		i++;
