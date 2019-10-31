@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:56:41 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/30 11:21:52 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/31 11:32:57 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	if (!(new = malloc((len1 + len2 + 1) * sizeof(char))))
+	{
+		free((char *)s1);
+		free((char *)s2);
 		return (NULL);
+	}
 	ft_memmove(new, s1, len1);
 	ft_memmove(&new[len1], s2, len2);
 	new[len1 + len2] = '\0';
@@ -73,9 +77,13 @@ char	*ft_strdup(const char *src)
 {
 	char	*dest;
 	int		i;
+	int		len;
 
+	len = 0;
 	i = 0;
-	dest = malloc(ft_strlen(src) + 1);
+	while (src[len] && src[len] != '\n')
+		len++;
+	dest = malloc((len + 1) * sizeof(char));
 	if (dest == NULL)
 		return (NULL);
 	while (src[i] && src[i] != '\n')
@@ -97,7 +105,10 @@ char	*ft_substr(char const *str, unsigned int index, size_t len)
 	if (index >= ft_strlen(str))
 		len = 0;
 	if (!(new = malloc((len + 1) * sizeof(char))))
+	{
+		free((char *)str);
 		return (NULL);
+	}
 	j = 0;
 	while (len-- && str[index])
 	{

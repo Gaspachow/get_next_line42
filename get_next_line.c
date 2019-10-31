@@ -6,7 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2019/10/28 16:10:17 by gsmets           ###   ########.fr       */
+/*   Updated: 2019/10/31 11:31:35 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		get_next_line(int fd, char **line)
 	{
 		buff[ret] = '\0';
 		if (!(tmp = ft_strjoin(str, buff)))
-			return (-1);
+			return (mega_error(str, buff));
 		free(str);
 		str = tmp;
 	}
@@ -55,10 +55,11 @@ int		create_line(char **str, char **line)
 	if ((*str)[len] == '\0')
 		return (last_line(str, line));
 	if (!(newline = malloc((len + 1) * sizeof(char))))
-		return (-1);
+		return (mega_error(newline, *str));
 	ft_memmove(newline, *str, len);
 	newline[len] = '\0';
-	tmp = ft_substr(*str, len + 1, (ft_strlen(*str) - (len + 1)));
+	if (!(tmp = ft_substr(*str, len + 1, (ft_strlen(*str) - (len + 1)))))
+		return (mega_error(newline, *str));
 	free(*str);
 	*str = tmp;
 	*line = newline;
@@ -72,6 +73,8 @@ int		last_line(char **str, char **line)
 	newline = ft_strdup(*str);
 	free(*str);
 	*str = NULL;
+	if (!newline)
+		return (-1);
 	*line = newline;
 	return (0);
 }
@@ -88,4 +91,11 @@ int		check_nl(char *str)
 			str++;
 	}
 	return (0);
+}
+
+int		mega_error(char *str1,char *str2)
+{
+	free(str1);
+	free(str2);
+	return (-1);
 }
